@@ -59,7 +59,7 @@ def get_organs_abdomen():
 def recursive_glob(searchroot='.', searchstr=''):
     if not os.path.isdir(searchroot):
         raise ValueError('No such directory: {}'.format(searchroot))
-    print "search for {0} in {1}".format(searchstr,searchroot)
+    print("search for %s in %s" % (searchstr,searchroot))
     f = [os.path.join(rootdir, filename)
         for rootdir, dirnames, filenames in os.walk(searchroot)
         for filename in filenames if searchstr in filename]
@@ -69,7 +69,7 @@ def recursive_glob(searchroot='.', searchstr=''):
 def recursive_glob2(searchroot='.', searchstr1='', searchstr2=''):
     if not os.path.isdir(searchroot):
         raise ValueError('No such directory: {}'.format(searchroot))
-    print "search for {} and {} in {}".format(searchstr1,searchstr2,searchroot)
+    print("search for %s and %s in %s") % (searchstr1,searchstr2,searchroot))
     f = [os.path.join(rootdir, filename)
         for rootdir, dirnames, filenames in os.walk(searchroot)
         for filename in filenames if (searchstr1 in filename and searchstr2 in filename)]
