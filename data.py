@@ -135,7 +135,7 @@ def make_data(train_path,test_path,Nchannels, ImSize, Ntrain=-1,Ntest=-1):
     
     print("There are {} label names:".format(label_names.__len__()))
     for label_name in label_names:
-        print("    {}".format(label_name)
+        print("    {}".format(label_name))
     
     # Training data
     print("Training data")
@@ -261,7 +261,7 @@ def make_data_3D(out_hickle_file,train_path,test_path,Nchannels, ImSize, Ntrain=
         print(40*'-')        
         i0 = b*train_step
         i1 = b*train_step+train_step-1
-        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1)))
+        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1))
         (X_train, Y_train, Files_train) = load_volumes(fs_train[i0:i1],label_names, Nchannels, ImSize, FOR_3DCONV)
     
         # Testing data
@@ -270,7 +270,7 @@ def make_data_3D(out_hickle_file,train_path,test_path,Nchannels, ImSize, Ntrain=
         print(40*'-')    
         i0 = b*test_step
         i1 = b*test_step+test_step
-        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1)))        
+        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1))       
         (X_test, Y_test, Files_test) = load_volumes(fs_test[i0:i1],label_names, Nchannels, ImSize, FOR_3DCONV)
     
         print(40*'-')        
