@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 from six.moves import range
 import random
-import cPickle as pickle      
+import _pickle as pickle      
 #from nifti import *    
 #import nrrd 
 import hickle               
