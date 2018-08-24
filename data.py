@@ -107,25 +107,25 @@ def load_images(fs,label_names,N, Nchannels, ImSize):
                 label_counts[label_idx] = label_counts[label_idx] + 1
 
         if not label_found:
-            print "Error: could not find label in {} -> skip".format(curr_filename)
+            print("Error: could not find label in {} -> skip".format(curr_filename))
             sys.exit( 1 )  
         
         im = Image.open(fs[i], 'r')
         X[i,:,:,:] = np.swapaxes(im,0,2)
                     
-        #print extension
+        #print(extension
         Y[i] = label    
         
         # progress
         if i%10000 is 0:
-            print "{0} of {1}: {2}".format(i, N, fs[i])
+            print( "{0} of {1}: {2}".format(i, N, fs[i]))
         
     total = 0
     for label_idx, label_name in enumerate(label_names):
-        print " {}: {}".format(label_name,label_counts[label_idx])        
+        print(" {}: {}".format(label_name,label_counts[label_idx])      )  
         total += label_counts[label_idx]
         
-    print " Total: {0}".format( total )    
+    print(" Total: {0}".format( total ))
         
     return (X, Y, fs[0:N])
 
@@ -133,27 +133,27 @@ def make_data(train_path,test_path,Nchannels, ImSize, Ntrain=-1,Ntest=-1):
     
     label_names = get_label_names_abdomen()    
     
-    print "There are {} label names:".format(label_names.__len__())
+    print("There are {} label names:".format(label_names.__len__()))
     for label_name in label_names:
-        print "    {}".format(label_name)
+        print("    {}".format(label_name)
     
     # Training data
-    print "Training data"
+    print("Training data")
     # Find files
     fs = find_files(train_path,'.png')
-    print " Randomly shuffle names..."
+    print(" Randomly shuffle names...")
     random.shuffle(fs)    
     (X_train, Y_train, Files_train) = load_images(fs,label_names,Ntrain, Nchannels, ImSize)
 
     # Testing data
-    print "Test data"
+    print("Test data")
     # Find files
     fs = find_files(test_path,'.png')
-    print " Randomly shuffle names..."
+    print(" Randomly shuffle names...")
     random.shuffle(fs)
     (X_test, Y_test, Files_test) = load_images(fs,label_names,Ntest, Nchannels, ImSize)
         
-    print "success"
+    print("success")
     
     return (X_train, Y_train), (X_test, Y_test), (Files_train, Files_test) 
  
@@ -182,24 +182,24 @@ def load_volumes(fs,label_names, Nchannels, ImSize, FOR_3DCONV):
                 label_counts[label_idx] = label_counts[label_idx] + 1
 
         if not label_found:
-            print "Error: could not find label in {} -> skip".format(curr_filename)
+            print("Error: could not find label in {} -> skip".format(curr_filename))
             sys.exit( 1 )  
         
         nim = NiftiImage(fs[i])
         X[i,:,:,:,0] = nim.data
                     
-        #print extension
+        #print(extension
         Y[i] = label    
         
         # progress
         if i%10000 is 0:
-            print "{0} of {1}: {2}".format(i, N, fs[i])
+            print("{0} of {1}: {2}".format(i, N, fs[i]))
         
     total = 0
     for label_idx, label_name in enumerate(label_names):
-        print " {}: {}".format(label_name,label_counts[label_idx])        
+        print(" {}: {}".format(label_name,label_counts[label_idx]))     
         total += label_counts[label_idx]
-    print " Total: {0}".format( total )    
+    print(" Total: {0}".format( total ))
     
 	 # Need to order the dataset as per the convolutional layer used.
     # As conv2d3d.conv3d doesnot support operation on a cpu, we are using nnet.conv3d for training on cpu.
@@ -231,13 +231,13 @@ def make_data_3D(out_hickle_file,train_path,test_path,Nchannels, ImSize, Ntrain=
         
     label_names = get_label_names_abdomen()    
     
-    print "There are {} label names:".format(label_names.__len__())
+    print("There are {} label names:".format(label_names.__len__()))
     for label_name in label_names:
-        print "    {}".format(label_name)
+        print("    {}".format(label_name))
     
     # Find files
     fs_train = find_files(train_path,'.nii.gz')
-    print " Randomly shuffle training names..."
+    print(" Randomly shuffle training names...")
     random.shuffle(fs_train)    
     fs_test = find_files(test_path,'.nii.gz')
     
@@ -257,30 +257,30 @@ def make_data_3D(out_hickle_file,train_path,test_path,Nchannels, ImSize, Ntrain=
     for b in range(0,Nbatches):
         # Training data
         print(40*'-')
-        print "Training data"
+        print("Training data")
         print(40*'-')        
         i0 = b*train_step
         i1 = b*train_step+train_step-1
-        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1))
+        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1)))
         (X_train, Y_train, Files_train) = load_volumes(fs_train[i0:i1],label_names, Nchannels, ImSize, FOR_3DCONV)
     
         # Testing data
         print(40*'-')
-        print "Test data"
+        print("Test data")
         print(40*'-')    
         i0 = b*test_step
         i1 = b*test_step+test_step
-        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1))        
+        print(' Batches {} of {} in range [{}, {}]...'.format(b+1,Nbatches,i0,i1)))        
         (X_test, Y_test, Files_test) = load_volumes(fs_test[i0:i1],label_names, Nchannels, ImSize, FOR_3DCONV)
     
         print(40*'-')        
-        print "success"
+        print("success")
         print(40*'-')
     
         print("Save hickle batch {} of {}...".format(b+1,Nbatches))
         out_hickle_batches[b] = out_hickle_file.replace('.hkl','_'+str(b)+'.hkl')
         hickle.dump( (X_train, Y_train, X_test, Y_test, Files_train, Files_test), out_hickle_batches[b], mode='w')       
-        print "Saved hickle at: {}".format(out_hickle_batches[b])    
+        print("Saved hickle at: {}".format(out_hickle_batches[b]))    
         
     return out_hickle_batches
    
@@ -359,7 +359,7 @@ def load_activation_data(path):
         Y_catmat = a["Y_catmat"]
         activations = a["activations"]    
     except ValueError:
-        print "Error reading pickle file (corrupted?): {0}".format(path)       
+        print("Error reading pickle file (corrupted?): {0}".format(path))       
         Files    = []
         Y        = []
         Y_catmat = []
@@ -369,7 +369,7 @@ def load_activation_data(path):
     
 def getLocations(Files, offset=[0.0, 0.0, 0.0], norm_fac=[1.0, 1.0, 1.0]):
     N = len(Files)
-    print "get locations from {0} files".format(N)
+    print("get locations from {0} files".format(N))
     loc = np.zeros((N,3))
     for i in range(0,N):
         f = Files[i]
@@ -386,7 +386,7 @@ def getLocations(Files, offset=[0.0, 0.0, 0.0], norm_fac=[1.0, 1.0, 1.0]):
         
         # progress
         if i%10000 is 0:
-            print "{0} of {1}: {2} -> {3}".format(i, N, name, loc[i][:])        
+            print("{0} of {1}: {2} -> {3}".format(i, N, name, loc[i][:]))
     return loc
         
 def windowing(x,lower,upper,desiredMin,desiredMax):
@@ -399,7 +399,7 @@ def windowing(x,lower,upper,desiredMin,desiredMax):
     y[y<desiredMin] = desiredMin;
     y[y>desiredMax] = desiredMax;
     
-    #print (" windowing between [{}, {}] to [{}, {}] using y = {}*x + {}".format(lower,upper,desiredMin,desiredMax,m,t))
+    #print(" windowing between [{}, {}] to [{}, {}] using y = {}*x + {}".format(lower,upper,desiredMin,desiredMax,m,t))
     
     return y
         
