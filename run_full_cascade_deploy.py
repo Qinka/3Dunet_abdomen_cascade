@@ -6,9 +6,9 @@ Created on 2016
 """
 
 ## Input output
-img_dir = '/mnt/dataset/averaged-training-images'
+img_dir = '/mnt/dataset/m-organs/averaged-training-images'
 img_search = '.nii.gz'
-label_dir = '/mnt/dataset/averaged-training-labels'
+label_dir = '/mnt/dataset/m-organs/averaged-training-labels'
 label_search = '.nii.gz'
 output_root = '/root/output'
 
