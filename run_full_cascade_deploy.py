@@ -10,7 +10,7 @@ img_dir = '/mnt/dataset/averaged-training-images'
 img_search = '.nii.gz'
 label_dir = '/mnt/dataset/averaged-training-labels'
 label_search = '.nii.gz'
-output_root = '/root/output
+output_root = '/root/output'
 
 ######################## FUNCTIONS ###############################
 import os
