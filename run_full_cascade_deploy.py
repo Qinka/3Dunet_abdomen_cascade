@@ -6,11 +6,11 @@ Created on 2016
 """
 
 ## Input output
-img_dir = '/media/CTimages'
+img_dir = '/mnt/dataset/averaged-training-images'
 img_search = '.nii.gz'
-label_dir = None
-label_search = ''
-output_root = '/media/auto3DUNET_abdomen_TEST--3dUnet'
+label_dir = '/mnt/dataset/averaged-training-labels'
+label_search = '.nii.gz'
+output_root = '/root/output
 
 ######################## FUNCTIONS ###############################
 import os
